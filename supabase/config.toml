@@ -1,0 +1,11 @@
+[functions.analyze-furniture-photo]
+verify_jwt = false
+
+[functions.analyze-mission-letter]
+verify_jwt = false
+
+[functions.estimate-market-price]
+verify_jwt = false
+
+[functions.send-notification]
+verify_jwt = false

@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.example
+.env.local
+.env.*.local
+*.log
+.DS_Store
+RAPPORT_INTEGRATION_STRIPE_27_JANVIER.md
+CONFIGURATION_CLES_API_PRODUCTION.md
+DEMARRAGE_RAPIDE_PRODUCTION.md
+ETAT_CLES_API.md
