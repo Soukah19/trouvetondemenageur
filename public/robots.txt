@@ -1,0 +1,26 @@
+# TrouveTonDéménageur - robots.txt
+User-agent: *
+Allow: /
+Allow: /blog
+Allow: /faq
+Allow: /guide-demenagement
+Allow: /about
+Allow: /contact
+Allow: /technology
+Allow: /press
+Allow: /pricing
+Allow: /legal/*
+Allow: /mover/signup
+Allow: /client/auth-choice
+
+# Block admin and internal pages
+Disallow: /admin/*
+Disallow: /api/*
+Disallow: /client/dashboard*
+Disallow: /mover/dashboard*
+Disallow: /mover/finances*
+Disallow: /mover/contracts*
+Disallow: /mover/documents*
+
+# Sitemap
+Sitemap: https://www.trouvetondemenageur.fr/sitemap.xml

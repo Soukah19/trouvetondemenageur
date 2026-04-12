@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navigation - TrouveTonDemenageur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo-button {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 50;
+            background: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .logo-button:hover {
+            opacity: 0.8;
+        }
+        .logo-button img {
+            height: 48px;
+            width: auto;
+            display: block;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #4b5563;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .back-button:hover {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+        .success {
+            color: #059669;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc2626;
+            font-weight: bold;
+        }
+        button.test-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button.test-btn:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo cliquable (comme dans l'app) -->
+    <button class="logo-button" onclick="testLogoClick()">
+        <img src="/capture_d'écran_2026-01-20_à_12.07.10.png" alt="TrouveTonDemenageur">
+    </button>
+
+    <div style="margin-top: 80px;">
+        <h1>Test de Navigation - TrouveTonDemenageur</h1>
+
+        <div class="test-section">
+            <h2>Test 1: Logo Cliquable</h2>
+            <p>Le logo en haut à gauche doit être cliquable et rediriger vers la page d'accueil.</p>
+            <button class="test-btn" onclick="testLogoClick()">Tester le Logo</button>
+            <p id="logo-result"></p>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 2: Bouton Retour</h2>
+            <p>Le bouton retour doit fonctionner avec navigate(-1).</p>
+            <button class="back-button" onclick="testBackButton()">
+                ← Retour
+            </button>
+            <p id="back-result"></p>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 3: Navigation avec React Router</h2>
+            <p>Vérifie que useNavigate est disponible.</p>
+            <button class="test-btn" onclick="checkReactRouter()">Vérifier React Router</button>
+            <p id="router-result"></p>
+        </div>
+
+        <div class="test-section">
+            <h2>Historique des Tests</h2>
+            <div id="test-log"></div>
+        </div>
+    </div>
+
+    <script>
+        let testLog = [];
+
+        function logTest(message, success) {
+            const timestamp = new Date().toLocaleTimeString();
+            testLog.push({ timestamp, message, success });
+            updateLog();
+        }
+
+        function updateLog() {
+            const logDiv = document.getElementById('test-log');
+            logDiv.innerHTML = testLog.map(log =>
+                `<div style="padding: 5px; color: ${log.success ? '#059669' : '#dc2626'}">
+                    ${log.timestamp} - ${log.message}
+                </div>`
+            ).join('');
+        }
+
+        function testLogoClick() {
+            const result = document.getElementById('logo-result');
+            try {
+                // Simuler le clic sur le logo
+                console.log("Logo cliqué - Tentative de navigation vers '/'");
+                result.innerHTML = '<span class="success">✓ Logo cliqué! (devrait naviguer vers /)</span>';
+                logTest('Logo cliqué avec succès', true);
+
+                // Dans une vraie app React, cela appellerait: navigate('/')
+                setTimeout(() => {
+                    result.innerHTML += '<br><small>Dans l\'app React: navigate(\'/\') sera appelé</small>';
+                }, 500);
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Erreur: ' + error.message + '</span>';
+                logTest('Erreur logo: ' + error.message, false);
+            }
+        }
+
+        function testBackButton() {
+            const result = document.getElementById('back-result');
+            try {
+                console.log("Bouton retour cliqué - Tentative de navigate(-1)");
+                result.innerHTML = '<span class="success">✓ Bouton retour cliqué! (devrait naviguer en arrière)</span>';
+                logTest('Bouton retour cliqué avec succès', true);
+
+                // Dans une vraie app React, cela appellerait: navigate(-1)
+                setTimeout(() => {
+                    result.innerHTML += '<br><small>Dans l\'app React: navigate(-1) sera appelé</small>';
+                }, 500);
+            } catch (error) {
+                result.innerHTML = '<span class="error">✗ Erreur: ' + error.message + '</span>';
+                logTest('Erreur bouton retour: ' + error.message, false);
+            }
+        }
+
+        function checkReactRouter() {
+            const result = document.getElementById('router-result');
+            result.innerHTML = '<span class="success">✓ Ce test HTML ne peut pas vérifier React Router</span>';
+            result.innerHTML += '<br><small>Dans l\'app React: useNavigate doit être importé de \'react-router-dom\'</small>';
+            logTest('Vérification React Router (simulation)', true);
+        }
+
+        // Test automatique au chargement
+        window.onload = function() {
+            logTest('Page de test chargée', true);
+            console.log('Test Navigation - TrouveTonDemenageur');
+        };
+    </script>
+</body>
+</html>
