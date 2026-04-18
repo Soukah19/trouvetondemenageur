@@ -17,37 +17,42 @@ export function LandingPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div className="glass-effect border-b border-white/20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -my-4">
-            <div className="flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between py-2">
               <div className="animate-slideInLeft">
-                <img src="/ttd-logo.png" alt="TrouveTonDemenageur" className="h-32 sm:h-36" />
+                <img src="/logo.png" alt="TrouveTonDemenageur" className="h-10 sm:hidden" />
+                <img src="/ttd-logo.png" alt="TrouveTonDemenageur" className="hidden sm:block h-36" />
               </div>
+
               <div className="flex items-center gap-1 sm:gap-2 animate-slideInRight">
-                {/* Comment ca marche — icon only on mobile, full text on sm+ */}
+                {/* ✅ Fix 4: Always shows text — shortened to "C'est quoi ?" on mobile */}
                 <button
                   onClick={scrollToHowItWorks}
                   title="Comment ça marche"
                   className="flex items-center gap-1 px-2.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium text-xs sm:text-sm whitespace-nowrap"
                 >
                   <Lightbulb className="w-4 h-4 flex-shrink-0" />
+                  <span className="sm:hidden">Fonctionnement</span>
                   <span className="hidden sm:inline">Comment ça marche</span>
                 </button>
-                {/* Espace Client — icon + short label on mobile, full label on sm+ */}
+
+                {/* ✅ Fix 2: No icon on mobile, text only */}
                 <button
                   onClick={() => navigate('/client/auth-choice')}
                   className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium text-xs sm:text-sm whitespace-nowrap"
                 >
-                  <LogIn className="w-4 h-4 flex-shrink-0" />
+                  <LogIn className="hidden sm:block w-4 h-4 flex-shrink-0" />
                   <span className="sm:hidden">Client</span>
                   <span className="hidden sm:inline">Espace Client</span>
                 </button>
-                {/* Espace Demenageur — short label on mobile, full label on sm+ */}
+
+                {/* ✅ Fix 2 & 3: No icon on mobile, "Déménageur" instead of "Pro" */}
                 <button
                   onClick={() => navigate('/mover/login')}
                   className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium text-xs sm:text-sm whitespace-nowrap"
                 >
-                  <Truck className="w-4 h-4 flex-shrink-0" />
-                  <span className="sm:hidden">Pro</span>
+                  <Truck className="hidden sm:block w-4 h-4 flex-shrink-0" />
+                  <span className="sm:hidden">Déménageur</span>
                   <span className="hidden sm:inline">Espace Déménageur</span>
                 </button>
               </div>
@@ -95,20 +100,20 @@ export function LandingPage() {
               </button>
             </div>
 
-
+            {/* ✅ Fix 5: Removed "hidden sm:flex" from "Zéro litige" — now visible on mobile */}
             <div className="mt-12 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 backdrop-blur-md p-5 rounded-2xl border border-blue-400/30 max-w-3xl mx-auto animate-fadeInUp shadow-xl" style={{ animationDelay: '0.8s' }}>
-              <div className="flex items-center justify-center gap-4 text-sm text-white font-medium">
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-white font-medium">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-blue-300" />
                   <span>Analyse photo par IA</span>
                 </div>
-                <div className="w-px h-4 bg-white/20"></div>
+                <div className="w-px h-4 bg-white/20 hidden sm:block"></div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-blue-300" />
                   <span>Arbitrage impartial</span>
                 </div>
                 <div className="w-px h-4 bg-white/20 hidden sm:block"></div>
-                <div className="flex items-center gap-2 hidden sm:flex">
+                <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-blue-300" />
                   <span>Zéro litige</span>
                 </div>
@@ -276,9 +281,7 @@ export function LandingPage() {
 
           <div
             className="relative rounded-3xl overflow-hidden shadow-premium animate-fadeInUp bg-gradient-to-br from-slate-900 via-gray-900 to-blue-900"
-            style={{
-              animationDelay: '0.4s'
-            }}
+            style={{ animationDelay: '0.4s' }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-gray-900/90 to-blue-900/85"></div>
             <div className="relative p-10 md:p-16">
@@ -595,8 +598,6 @@ export function LandingPage() {
         </div>
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-         
-
           <h2 className="text-4xl md:text-6xl font-extrabold mb-8 leading-tight animate-fadeInUp">
             Votre prochain déménagement
             <span className="block mt-2 bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent">
@@ -688,6 +689,13 @@ export function LandingPage() {
                     <button onClick={() => navigate('/pricing')} className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                       Tarifs
+                    </button>
+                  </li>
+                  {/* ✅ Fix 6: Blog link added in Services section */}
+                  <li>
+                    <button onClick={() => navigate('/blog')} className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                      Blog
                     </button>
                   </li>
                 </ul>
